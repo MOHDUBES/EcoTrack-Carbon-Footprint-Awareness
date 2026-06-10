@@ -6,9 +6,8 @@ const app = express();
 app.use(express.static('.'));
 app.use(express.json());
 
-// Initialize Gemini SDK
-// Note: Requires GEMINI_API_KEY environment variable to be set
-const ai = new GoogleGenAI();
+// Initialize Gemini SDK with fallback key to prevent server crash during startup on Cloud Run
+const ai = new GoogleGenAI(process.env.GEMINI_API_KEY ? {} : { apiKey: 'dummy-key-to-prevent-startup-crash' });
 
 app.post('/api/chat', async (req, res) => {
   try {
