@@ -1,5 +1,7 @@
 # 🌍 EcoTrack: Carbon Footprint Awareness Platform
 
+🌐 **Live Demo:** [https://ecotrack-carbon-footprint-awareness-591705660600.us-central1.run.app](https://ecotrack-carbon-footprint-awareness-591705660600.us-central1.run.app)
+
 EcoTrack is a premium, AI-driven educational platform designed to help individuals **understand, track, and reduce** their carbon footprint. It provides real-time impact calculations, a dynamic AI assistant, and an actionable reduction hub.
 
 ## 🚀 Key Features & Innovations
