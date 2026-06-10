@@ -1,9 +1,6 @@
 # 🌍 EcoTrack: Carbon Footprint Awareness Platform
-**Winner-Ready Entry for PromptWars Hackathon 🏆**
 
-[![Live Demo](https://img.shields.io/badge/Status-Fully_Optimized-2ea44f?style=for-the-badge&logo=github)](https://github.com/MOHDUBES)
-
-EcoTrack is a premium, AI-driven educational platform designed to help individuals **understand, track, and reduce** their carbon footprint. Built from the ground up to achieve perfect scores in automated hackathon evaluations, it provides real-time impact calculations, a dynamic AI assistant, and an actionable reduction hub.
+EcoTrack is a premium, AI-driven educational platform designed to help individuals **understand, track, and reduce** their carbon footprint. It provides real-time impact calculations, a dynamic AI assistant, and an actionable reduction hub.
 
 ## 🚀 Key Features & Innovations
 * **🤖 Smart Dynamic Assistant:** An interactive, contextual AI companion providing personalized insights based on the user's specific lifestyle choices and current footprint score.
