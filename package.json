@@ -5,13 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "http-server -p 8080 -c-1"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "engines": {
+    "node": "20.x"
+  },
   "dependencies": {
+    "express": "^5.2.1",
     "http-server": "^14.1.1"
   },
   "devDependencies": {
