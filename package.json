@@ -1,0 +1,20 @@
+{
+  "name": "carbon-footprint-awareness",
+  "version": "1.0.0",
+  "description": "EcoTrack is a smart, dynamic web application designed to help individuals understand, track, and reduce their carbon footprint through personalized AI-driven insights and actionable recommendations.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "http-server -p 8080 -c-1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "jest": "^30.4.2",
+    "jsdom": "^29.1.1",
+    "serve": "^14.2.6"
+  }
+}
