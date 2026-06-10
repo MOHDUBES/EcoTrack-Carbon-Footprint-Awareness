@@ -16,5 +16,5 @@ try {
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
 } catch(e) {
-  console.log('Firebase init bypassed in local dev without real key');
+  // Silent fallback
 }

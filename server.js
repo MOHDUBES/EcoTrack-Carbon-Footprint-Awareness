@@ -40,7 +40,6 @@ app.post('/api/chat', async (req, res) => {
     
     res.json({ reply: response.text });
   } catch (error) {
-    console.error('Gemini API Error:', error.message);
     res.status(500).json({ error: 'Failed to generate response' });
   }
 });
