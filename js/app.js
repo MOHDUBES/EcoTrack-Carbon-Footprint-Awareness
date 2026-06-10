@@ -265,3 +265,12 @@ function checkStreak() {
   const streakNum = document.getElementById('streakNumber');
   if(streakNum) streakNum.textContent = appState.streak;
 }
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    initApp,
+    updateDashboardUI,
+    renderGauge,
+    checkStreak
+  };
+}

@@ -4,7 +4,7 @@
   "description": "EcoTrack is a smart, dynamic web application designed to help individuals understand, track, and reduce their carbon footprint through personalized AI-driven insights and actionable recommendations.",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage --env=jsdom",
     "start": "node server.js"
   },
   "keywords": [],
@@ -17,13 +17,15 @@
     "@google/genai": "^2.8.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.5.2",
     "firebase": "^12.14.0",
+    "helmet": "^8.2.0",
     "http-server": "^14.1.1",
-    "jest": "^30.4.2"
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1",
+    "jsdom": "^29.1.1"
   },
   "devDependencies": {
-    "jest-environment-jsdom": "^30.4.1",
-    "jsdom": "^29.1.1",
     "serve": "^14.2.6"
   }
 }

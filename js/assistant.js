@@ -210,3 +210,15 @@ window.runScenario = function(type) {
   }
   resultBox.classList.add('visible');
 }
+
+// Module exports for Jest testing
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    generateBotResponse,
+    handleUserMessage,
+    addChatMessage,
+    showTypingIndicator,
+    removeTypingIndicator,
+    SCENARIOS
+  };
+}

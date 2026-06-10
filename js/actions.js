@@ -109,6 +109,16 @@ window.commitAction = function(id, element) {
   
   // Re-render current filter state
   const activeTab = document.querySelector('.filter-tab.active');
-  const cat = activeTab ? (activeTab.textContent.toLowerCase().includes('all') ? 'all' : activeTab.textContent.split(' ')[1].toLowerCase()) : 'all';
+  let cat = 'all';
+  if (activeTab && activeTab.dataset && activeTab.dataset.filter) {
+    cat = activeTab.dataset.filter;
+  }
   renderActions(cat);
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    renderActions,
+    ECO_ACTIONS
+  };
 }

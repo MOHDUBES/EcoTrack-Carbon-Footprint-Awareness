@@ -69,7 +69,7 @@ function renderMonthlySummary() {
         <div class="monthly-stat-label">Diet</div>
       </div>
     </div>
-  `;
+  `);
 }
 
 function renderImpactEquivalents() {
@@ -158,4 +158,15 @@ window.goToFact = function(idx) {
   const newSlide = document.getElementById(`factSlide-${currentFactIdx}`);
   if (newSlide) newSlide.classList.add('active');
   if (dots[currentFactIdx]) dots[currentFactIdx].classList.add('active');
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    renderInsights,
+    renderMonthlySummary,
+    renderImpactEquivalents,
+    renderRecommendations,
+    renderFacts,
+    FACTS
+  };
 }
