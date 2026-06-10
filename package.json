@@ -14,7 +14,10 @@
     "node": "20.x"
   },
   "dependencies": {
+    "@google/genai": "^2.8.0",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "firebase": "^12.14.0",
     "http-server": "^14.1.1"
   },
   "devDependencies": {
