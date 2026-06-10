@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1781109701378" clover="3.2.0">
-  <project timestamp="1781109701379" name="All files">
+<coverage generated="1781110123469" clover="3.2.0">
+  <project timestamp="1781110123470" name="All files">
     <metrics statements="650" coveredstatements="616" conditionals="403" coveredconditionals="282" methods="134" coveredmethods="112" elements="1187" coveredelements="1010" complexity="0" loc="650" ncloc="650" packages="2" files="11" classes="11"/>
     <package name="Carbon Footprint Awareness">
       <metrics statements="32" coveredstatements="30" conditionals="18" coveredconditionals="14" methods="3" coveredmethods="3"/>
