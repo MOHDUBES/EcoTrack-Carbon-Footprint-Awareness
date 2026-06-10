@@ -86,12 +86,31 @@ function handleUserMessage() {
   // Typing indicator
   const typingId = showTypingIndicator();
 
-  // Process & respond
-  setTimeout(() => {
-    removeTypingIndicator(typingId);
-    const botReply = generateBotResponse(msg);
-    addChatMessage(botReply, 'bot');
-  }, 800 + Math.random() * 500); // Simulate processing delay
+// Process & respond
+  setTimeout(async () => {
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          message: msg,
+          context: appState.hasCompletedCalc ? appState.footprint : null 
+        })
+      });
+      
+      if (!response.ok) throw new Error('API Error');
+      
+      const data = await response.json();
+      removeTypingIndicator(typingId);
+      addChatMessage(data.reply, 'bot');
+    } catch (e) {
+      // Fallback to rule-based engine if API fails (e.g. no key)
+      console.log('Falling back to local AI rules');
+      removeTypingIndicator(typingId);
+      const botReply = generateBotResponse(msg);
+      addChatMessage(botReply, 'bot');
+    }
+  }, 500); // Small visual delay
 }
 
 window.sendSuggestion = function(btn) {
