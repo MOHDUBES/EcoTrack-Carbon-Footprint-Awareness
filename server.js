@@ -2,9 +2,22 @@ require('dotenv').config();
 const express = require('express');
 const { GoogleGenAI } = require('@google/genai');
 
+const path = require('path');
 const app = express();
-app.use(express.static('.'));
+
+// SECURITY FIX: Do not serve the root directory which exposes package.json, server.js, .env, etc.
+// Instead, serve only specific frontend asset directories.
+app.use('/js', express.static(path.join(__dirname, 'js')));
+app.use('/css', express.static(path.join(__dirname, 'css')));
 app.use(express.json());
+
+// Serve index.html explicitly for the root route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+app.get('/favicon.png', (req, res) => {
+  res.sendFile(path.join(__dirname, 'favicon.png'));
+});
 
 // Initialize Gemini SDK with fallback key to prevent server crash during startup on Cloud Run
 const ai = new GoogleGenAI(process.env.GEMINI_API_KEY ? {} : { apiKey: 'dummy-key-to-prevent-startup-crash' });
