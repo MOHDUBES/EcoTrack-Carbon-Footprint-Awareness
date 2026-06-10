@@ -185,6 +185,7 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     updateRealtimeCalc,
     calculateTotal,
-    nextCalcStep
+    nextCalcStep,
+    saveAndGoToDashboard
   };
 }

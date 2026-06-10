@@ -262,6 +262,8 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     addLogEntry,
     updateStreak,
-    renderLogTable
+    renderLogTable,
+    deleteLogEntry,
+    renderTrackerChart
   };
 }

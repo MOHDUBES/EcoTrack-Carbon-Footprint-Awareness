@@ -39,4 +39,21 @@ describe('actions.js', () => {
     expect(global.showToast).toHaveBeenCalled();
     expect(global.saveState).toHaveBeenCalled();
   });
+
+  test('commitAction removes action if already committed', () => {
+    global.appState.committedActions = [ECO_ACTIONS[0].id];
+    window.commitAction(ECO_ACTIONS[0].id, document.createElement('button'));
+    expect(global.appState.committedActions).not.toContain(ECO_ACTIONS[0].id);
+    expect(global.saveState).toHaveBeenCalled();
+  });
+
+  test('filterActions filters by category', () => {
+    document.body.innerHTML += `
+      <div class="filter-tab" data-filter="transport">Transport</div>
+    `;
+    const btn = document.querySelector('.filter-tab[data-filter="transport"]');
+    window.filterActions('transport', btn);
+    expect(btn.classList.contains('active')).toBe(true);
+    expect(document.getElementById('actionsGrid').childNodes.length).toBeGreaterThan(0);
+  });
 });

@@ -26,3 +26,48 @@ describe('data.js', () => {
     expect(EMISSION_FACTORS.transport.type.medium).toBeGreaterThan(0);
   });
 });
+
+const { saveState, loadState, appState } = require('../js/data.js');
+
+describe('state management', () => {
+  beforeEach(() => {
+    localStorage.clear();
+    jest.clearAllMocks();
+  });
+
+  test('saveState saves to localStorage', () => {
+    appState.streak = 10;
+    saveState();
+    expect(localStorage.getItem('ecoTrackState')).toContain('"streak":10');
+  });
+
+  test('loadState loads from localStorage', () => {
+    localStorage.setItem('ecoTrackState', JSON.stringify({ streak: 5 }));
+    const state = loadState();
+    expect(state.streak).toBe(5);
+  });
+
+  test('saveState handles quota exceeded errors safely', () => {
+    const setItemMock = jest.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+      throw new Error('Quota exceeded');
+    });
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    
+    expect(() => saveState()).not.toThrow();
+    expect(consoleSpy).toHaveBeenCalled();
+    
+    setItemMock.mockRestore();
+    consoleSpy.mockRestore();
+  });
+
+  test('loadState handles invalid JSON safely', () => {
+    localStorage.setItem('ecoTrackState', 'invalid-json');
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    
+    const state = loadState();
+    expect(state).toBeDefined(); // Should return DEFAULT_STATE
+    expect(consoleSpy).toHaveBeenCalled();
+    
+    consoleSpy.mockRestore();
+  });
+});

@@ -85,7 +85,7 @@ document.body.innerHTML = `
 // Mock window.scrollTo
 window.scrollTo = jest.fn();
 
-const { updateRealtimeCalc, calculateTotal, nextCalcStep } = require('../js/calculator.js');
+const { updateRealtimeCalc, calculateTotal, nextCalcStep, saveAndGoToDashboard } = require('../js/calculator.js');
 
 describe('calculator.js', () => {
   beforeEach(() => {
@@ -101,9 +101,18 @@ describe('calculator.js', () => {
     jest.useRealTimers();
   });
 
+  test('DOMContentLoaded attaches listeners and updates range display', () => {
+    document.body.innerHTML += '<span id="carKmVal"></span>';
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+    const input = document.getElementById('carKm');
+    input.value = "150";
+    input.dispatchEvent(new Event('input'));
+    expect(document.getElementById('carKmVal').textContent).toBe('150 km/week');
+  });
+
   test('updateRealtimeCalc calculates scores accurately', () => {
     const scores = updateRealtimeCalc();
-    expect(scores.transport).toBe(2.5 + (200 * 0.005) + 1.5 + 0.2); // 5.2
+    expect(scores.transport).toBe(5.2); 
     expect(scores.diet).toBe(2.3 + -0.1 + 0); // 2.2
     expect(scores.energy).toBe(1.5 * 1.0 * 1.0 * 1.0); // 1.5
     expect(scores.shopping).toBe(0.6 + 0.2 + 0.1); // 0.9
@@ -124,5 +133,12 @@ describe('calculator.js', () => {
     expect(global.saveState).toHaveBeenCalled();
     expect(document.getElementById('resultTotal').textContent).toBe("9.8");
     expect(global.toggleLoading).toHaveBeenCalledWith(false);
+  });
+
+  test('saveAndGoToDashboard updates UI and navigates', () => {
+    saveAndGoToDashboard();
+    expect(global.updateDashboardUI).toHaveBeenCalled();
+    expect(global.showToast).toHaveBeenCalledWith('Footprint calculated and saved successfully!');
+    expect(global.navigateTo).toHaveBeenCalledWith('dashboard');
   });
 });

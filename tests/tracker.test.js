@@ -41,7 +41,7 @@ document.body.innerHTML = `
   </div>
 `;
 
-const { addLogEntry, updateStreak, renderLogTable } = require('../js/tracker.js');
+const { addLogEntry, updateStreak, renderLogTable, deleteLogEntry, renderTrackerChart } = require('../js/tracker.js');
 
 describe('tracker.js', () => {
   beforeEach(() => {
@@ -96,5 +96,74 @@ describe('tracker.js', () => {
     expect(global.appState.logs.length).toBe(1);
     expect(global.appState.logs[0].transport).toBe(2.0);
     expect(global.showToast).toHaveBeenCalledWith(expect.stringContaining('updated'));
+  });
+
+  test('addLogEntry fails without a date', () => {
+    document.getElementById('logDate').value = "";
+    addLogEntry();
+    expect(global.showToast).toHaveBeenCalledWith('Please select a date', 'error');
+  });
+
+  test('addLogEntry fails if all values are 0 and no note', () => {
+    document.getElementById('logTransport').value = "0";
+    document.getElementById('logEnergy').value = "";
+    document.getElementById('logDiet').value = "0";
+    document.getElementById('logNote').value = "";
+    addLogEntry();
+    expect(global.showToast).toHaveBeenCalledWith('Please enter some values or a note to log.', 'warning');
+  });
+
+  test('deleteLogEntry removes log and updates UI', () => {
+    addLogEntry(); // Adds 2024-01-01
+    window.confirm = jest.fn(() => true);
+    deleteLogEntry("2024-01-01");
+    expect(global.appState.logs.length).toBe(0);
+    expect(global.showToast).toHaveBeenCalledWith('Entry deleted');
+  });
+
+  test('deleteLogEntry does nothing if cancelled', () => {
+    addLogEntry();
+    window.confirm = jest.fn(() => false);
+    deleteLogEntry("2024-01-01");
+    expect(global.appState.logs.length).toBe(1);
+  });
+
+  test('renderLogTable renders logs correctly', () => {
+    document.body.innerHTML += '<table><tbody id="logTableBody"></tbody></table>';
+    global.appState.logs = [{ date: '2024-01-01', transport: 1, energy: 1, diet: 1, total: 3, note: '' }];
+    global.setSafeHTML = jest.fn();
+    renderLogTable();
+    expect(global.setSafeHTML).toHaveBeenCalled();
+  });
+
+  test('renderLogTable handles empty logs', () => {
+    document.body.innerHTML += '<table><tbody id="logTableBody"></tbody></table>';
+    global.appState.logs = [];
+    global.setSafeHTML = jest.fn();
+    renderLogTable();
+    expect(global.setSafeHTML).toHaveBeenCalled();
+  });
+
+  test('renderTrackerChart renders chart safely', () => {
+    addLogEntry();
+    renderTrackerChart();
+    expect(document.getElementById('progressEmpty').style.display).toBe('none');
+  });
+
+  test('renderTrackerChart handles empty state safely', () => {
+    renderTrackerChart();
+    expect(document.getElementById('progressEmpty').style.display).toBe('block');
+  });
+
+  test('DOMContentLoaded attaches tracker listeners', () => {
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+    const form = document.getElementById('trackerForm');
+    
+    // Simulate submit
+    const submitEvent = new Event('submit', { cancelable: true });
+    form.dispatchEvent(submitEvent);
+    
+    expect(submitEvent.defaultPrevented).toBe(true);
+    expect(global.appState.logs.length).toBe(1); // Since valid inputs exist from beforeEach
   });
 });
