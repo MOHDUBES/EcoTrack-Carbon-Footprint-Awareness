@@ -46,7 +46,7 @@ function renderActions(filter = 'all') {
     const card = document.createElement('div');
     card.className = `action-card ${isCommitted ? 'committed' : ''}`;
     card.setAttribute('role', 'listitem');
-    card.innerHTML = `
+    const html = `
       <div class="action-top">
         <div class="action-icon" aria-hidden="true">${action.icon}</div>
         <div class="action-info">
@@ -64,6 +64,7 @@ function renderActions(filter = 'all') {
         </button>
       </div>
     `;
+    setSafeHTML(card, html);
     grid.appendChild(card);
   });
 

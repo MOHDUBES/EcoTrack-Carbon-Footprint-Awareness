@@ -90,3 +90,15 @@ function formatNum(num, decimals = 2) {
   const parsed = parseFloat(num);
   return isNaN(parsed) ? "0.00" : parsed.toFixed(decimals);
 }
+
+// Module exports for Jest testing
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    EMISSION_FACTORS,
+    formatNum,
+    escapeHTML: sanitizeInput,
+    appState,
+    saveState,
+    loadState
+  };
+}

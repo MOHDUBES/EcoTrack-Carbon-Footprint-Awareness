@@ -255,5 +255,13 @@ function renderBadges() {
 // Initial render
 document.addEventListener('DOMContentLoaded', () => {
   renderLogTable();
-  renderBadges();
 });
+
+// Module exports for Jest testing
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    addLogEntry,
+    updateStreak,
+    renderLogTable
+  };
+}

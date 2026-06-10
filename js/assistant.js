@@ -128,12 +128,13 @@ function showTypingIndicator() {
   msgDiv.className = `chat-message bot-message typing-indicator`;
   msgDiv.id = id;
   
-  msgDiv.innerHTML = `
+  const html = `
     <div class="message-avatar" aria-hidden="true">🤖</div>
     <div class="message-bubble">
       <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
     </div>
   `;
+  setSafeHTML(msgDiv, html);
   
   chatMessages.appendChild(msgDiv);
   chatMessages.scrollTop = chatMessages.scrollHeight;

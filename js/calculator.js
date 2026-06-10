@@ -179,3 +179,12 @@ function saveAndGoToDashboard() {
   showToast('Footprint calculated and saved successfully!');
   navigateTo('dashboard');
 }
+
+// Module exports for Jest testing
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    updateRealtimeCalc,
+    calculateTotal,
+    nextCalcStep
+  };
+}

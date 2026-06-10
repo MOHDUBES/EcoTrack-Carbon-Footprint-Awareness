@@ -50,7 +50,7 @@ function renderMonthlySummary() {
     mTotal += l.total;
   });
 
-  container.innerHTML = `
+  setSafeHTML(container, `
     <div class="monthly-stats">
       <div class="monthly-stat">
         <div class="monthly-stat-num">${formatNum(mTotal)}t</div>
