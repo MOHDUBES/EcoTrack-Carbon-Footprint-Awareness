@@ -1,3 +1,4 @@
+/* global appState, EMISSION_FACTORS, saveState, loadState, formatNum, sanitizeInput, setSafeHTML, toggleLoading, updateDashboardUI, showToast, navigateTo, Chart, checkStreak, nextCalcStep, calculateTotal, saveAndGoToDashboard, filterActions, runScenario, sendSuggestion, changeFact, deleteLogEntry, goToFact, commitAction */
 /**
  * @file data.js
  * @description Core logic module for EcoTrack platform.
@@ -85,9 +86,11 @@ function loadState() {
 // Helper to sanitize inputs to prevent XSS
 function sanitizeInput(input) {
   if (typeof input !== 'string') return input;
-  const div = document.createElement('div');
-  div.textContent = input;
-  return div.innerHTML;
+  return input.replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')
+              .replace(/"/g, '&quot;')
+              .replace(/'/g, '&#39;');
 }
 
 // Helper to format numbers safely
@@ -107,3 +110,4 @@ if (typeof module !== 'undefined' && module.exports) {
     loadState
   };
 }
+

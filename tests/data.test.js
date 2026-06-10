@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-const { EMISSION_FACTORS, formatNum, escapeHTML, sanitizeInput } = require('../js/data.js');
+const { EMISSION_FACTORS, formatNum, escapeHTML, saveState, loadState, appState } = require('../js/data.js');
 
 describe('data.js', () => {
   test('formatNum correctly formats numbers', () => {
@@ -27,7 +27,6 @@ describe('data.js', () => {
   });
 });
 
-const { saveState, loadState, appState } = require('../js/data.js');
 
 describe('state management', () => {
   beforeEach(() => {

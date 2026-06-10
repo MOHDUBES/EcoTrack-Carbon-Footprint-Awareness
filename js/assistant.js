@@ -1,3 +1,4 @@
+/* global appState, EMISSION_FACTORS, saveState, loadState, formatNum, sanitizeInput, setSafeHTML, toggleLoading, updateDashboardUI, showToast, navigateTo, Chart, checkStreak, nextCalcStep, calculateTotal, saveAndGoToDashboard, filterActions, runScenario, sendSuggestion, changeFact, deleteLogEntry, goToFact, commitAction */
 /**
  * @file assistant.js
  * @description Core logic module for EcoTrack platform.
@@ -129,10 +130,24 @@ function addChatMessage(htmlContent, sender) {
   const msgDiv = document.createElement('div');
   msgDiv.className = `chat-message ${isUser ? 'user-message' : 'bot-message'}`;
   
-  msgDiv.innerHTML = `
-    <div class="message-avatar" aria-hidden="true">${isUser ? '👤' : '🤖'}</div>
-    <div class="message-bubble"><p>${isUser ? sanitizeInput(htmlContent) : htmlContent}</p></div>
-  `;
+  const avatarDiv = document.createElement('div');
+  avatarDiv.className = 'message-avatar';
+  avatarDiv.setAttribute('aria-hidden', 'true');
+  avatarDiv.textContent = isUser ? '👤' : '🤖';
+
+  const bubbleDiv = document.createElement('div');
+  bubbleDiv.className = 'message-bubble';
+  
+  if (isUser) {
+    const p = document.createElement('p');
+    p.textContent = htmlContent;
+    bubbleDiv.appendChild(p);
+  } else {
+    setSafeHTML(bubbleDiv, `<p>${htmlContent}</p>`);
+  }
+  
+  msgDiv.appendChild(avatarDiv);
+  msgDiv.appendChild(bubbleDiv);
   
   chatMessages.appendChild(msgDiv);
   chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -221,3 +236,4 @@ if (typeof module !== 'undefined' && module.exports) {
     SCENARIOS
   };
 }
+

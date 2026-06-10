@@ -1,3 +1,4 @@
+/* global appState, EMISSION_FACTORS, saveState, loadState, formatNum, sanitizeInput, setSafeHTML, toggleLoading, updateDashboardUI, showToast, navigateTo, Chart, checkStreak, nextCalcStep, calculateTotal, saveAndGoToDashboard, filterActions, runScenario, sendSuggestion, changeFact, deleteLogEntry, goToFact, commitAction */
 /**
  * @file app.js
  * @description Core logic module for EcoTrack platform.
@@ -274,3 +275,4 @@ if (typeof module !== 'undefined' && module.exports) {
     checkStreak
   };
 }
+
