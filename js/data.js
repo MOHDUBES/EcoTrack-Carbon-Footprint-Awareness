@@ -60,21 +60,26 @@ function saveState() {
   try {
     localStorage.setItem('ecoTrackState', JSON.stringify(appState));
   } catch (e) {
-    console.error("Failed to save state to localStorage", e);
+    // Silent fallback
   }
 }
 
 // Load state from LocalStorage
 function loadState() {
+  let state = JSON.parse(JSON.stringify(DEFAULT_STATE));
   try {
     const saved = localStorage.getItem('ecoTrackState');
     if (saved) {
-      return { ...DEFAULT_STATE, ...JSON.parse(saved) };
+      const parsed = JSON.parse(saved);
+      state = { ...state, ...parsed };
+      if (!Array.isArray(state.logs)) state.logs = [];
+      if (!Array.isArray(state.committedActions)) state.committedActions = [];
+      if (!Array.isArray(state.badges)) state.badges = [];
     }
   } catch (e) {
-    console.error("Failed to load state from localStorage", e);
+    // Silent fallback
   }
-  return JSON.parse(JSON.stringify(DEFAULT_STATE));
+  return state;
 }
 
 // Helper to sanitize inputs to prevent XSS

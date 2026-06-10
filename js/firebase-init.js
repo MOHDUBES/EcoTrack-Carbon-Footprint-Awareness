@@ -16,6 +16,12 @@ try {
     import("https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js").then((module2) => {
       const analytics = module2.getAnalytics(app);
     }).catch(e => {});
+    import("https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js").then((module3) => {
+      const auth = module3.getAuth(app);
+    }).catch(e => {});
+    import("https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js").then((module4) => {
+      const db = module4.getFirestore(app);
+    }).catch(e => {});
   }).catch(e => {});
 } catch(e) {
   // Silent fallback

@@ -51,23 +51,19 @@ describe('state management', () => {
     const setItemMock = jest.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
       throw new Error('Quota exceeded');
     });
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
     
     expect(() => saveState()).not.toThrow();
-    expect(consoleSpy).toHaveBeenCalled();
     
     setItemMock.mockRestore();
-    consoleSpy.mockRestore();
   });
 
   test('loadState handles invalid JSON safely', () => {
-    localStorage.setItem('ecoTrackState', 'invalid-json');
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const getItemMock = jest.spyOn(Storage.prototype, 'getItem').mockReturnValue('{ invalid json }');
     
     const state = loadState();
-    expect(state).toBeDefined(); // Should return DEFAULT_STATE
-    expect(consoleSpy).toHaveBeenCalled();
     
-    consoleSpy.mockRestore();
+    expect(state).toEqual(expect.objectContaining({ hasCompletedCalc: false }));
+    
+    getItemMock.mockRestore();
   });
 });

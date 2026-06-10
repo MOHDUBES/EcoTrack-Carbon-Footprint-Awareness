@@ -105,7 +105,6 @@ function handleUserMessage() {
       addChatMessage(data.reply, 'bot');
     } catch (e) {
       // Fallback to rule-based engine if API fails (e.g. no key)
-      console.log('Falling back to local AI rules');
       removeTypingIndicator(typingId);
       const botReply = generateBotResponse(msg);
       addChatMessage(botReply, 'bot');
